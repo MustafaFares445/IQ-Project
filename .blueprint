@@ -1,0 +1,14 @@
+created:
+    - app/Http/Controllers/QuestionController.php
+    - app/Http/Controllers/ScoreController.php
+    - tests/Feature/Http/Controllers/QuestionControllerTest.php
+    - tests/Feature/Http/Controllers/ScoreControllerTest.php
+    - app/Http/Requests/QuestionStoreRequest.php
+updated:
+    - routes/web.php
+models:
+    Question: { id: id, typeId: 'bigInteger primary foreign:types.id', title: bigInteger, category: 'string nullable' }
+    User: { id: id, name: string, email: 'string unique', password: string, age: smallInteger }
+    Score: { id: id, typeId: 'bigInteger primary foreign:types.id', userId: 'bigInteger primary foreign:users.id', score: bigInteger, name: string }
+    Choice: { id: id, questionId: 'bigInteger primary foreign:questions.id', description: string, istrue: boolean }
+    Type: { id: id, name: string }

@@ -1,0 +1,12 @@
+controllers:
+  Question:
+    index:
+      query: all:choices
+    store:
+      validate: title
+      save: question
+      redirect: question.index
+
+  Score:
+    index:
+      query: all
