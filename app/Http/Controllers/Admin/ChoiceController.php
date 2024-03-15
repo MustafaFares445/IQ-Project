@@ -4,17 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Choice;
+use App\Traits\FileManager;
 use Illuminate\Http\Request;
 
 class ChoiceController extends Controller
 {
-
+    use FileManager;
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //TODO:Store new Choice image
+        $this->uploadFile($request , 'choices' , 'img');
         Choice::create($request->all());
 
         return redirect()->back();
@@ -25,8 +26,8 @@ class ChoiceController extends Controller
      */
     public function update(Request $request, Choice $choice)
     {
-        //TODO:Delete Choice image
-        //TODO:Store new Choice image
+        $this->deleteFile($choice , 'img');
+        $this->uploadFile($request , 'choices' , 'img');
         $choice->update($request->all());
 
         return redirect()->back();
@@ -37,8 +38,7 @@ class ChoiceController extends Controller
      */
     public function destroy(Choice $choice)
     {
-        //TODO:Delete Choice image
-        //TODO:Store new Choice image
+        $this->deleteFile($choice , 'img');
         $choice->delete();
 
         return redirect()->back();

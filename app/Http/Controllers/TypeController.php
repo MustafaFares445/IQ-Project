@@ -11,6 +11,6 @@ class TypeController extends Controller
     {
         $types = Type::all();
 
-        return $this->successResponse($types , 'all types has been retrieved successfully');
+        return $this->successResponse(data: $types, message: 'all types has been retrieved successfully');
     }
 }

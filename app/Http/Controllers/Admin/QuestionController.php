@@ -4,10 +4,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Question;
+use App\Traits\FileManager;
 use Illuminate\Http\Request;
 
 class QuestionController extends Controller
 {
+    use FileManager;
     /**
      * Display a listing of the resource.
      */
@@ -24,7 +26,7 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        //TODO:Store Question image
+        $this->uploadFile($request , 'questions' , 'img');
         Question::create($request->all());
 
         return redirect()->route('home');
@@ -44,8 +46,10 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        //TODO:Delete Question image
-        //TODO:Store new Question image
+        $this->deleteFile($question , 'img');
+
+        $this->uploadFile($request , 'questions' , 'img');
+
         $question->update($request->all());
 
         return redirect()->route('home');
@@ -56,8 +60,7 @@ class QuestionController extends Controller
      */
     public function destroy(Question $question)
     {
-        //TODO:Delete Question image
-        //TODO:Store new Question image
+        $this->deleteFile($question , 'img');
         $question->delete();
 
         return redirect()->route('home');
