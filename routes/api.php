@@ -17,9 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::resource('/question', App\Http\Controllers\QuestionController::class)->only('index', 'store');
 
 Route::middleware('auth:sanctum')->group(function (){
-    Route::resource('/question', App\Http\Controllers\QuestionController::class)->only('index', 'store');
+
 
     Route::resource('/score', App\Http\Controllers\ScoreController::class)->only('index' , 'store');
 

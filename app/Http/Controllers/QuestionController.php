@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\QuestionStoreRequest;
+use App\Http\Resources\QuestionResource;
 use App\Models\Question;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -23,7 +24,7 @@ class QuestionController extends Controller
         $questions = Question::with('choices')
             ->where('typeId' , $validator->getValue('typeId'))->get();
 
-        return $this->successResponse(data:  $questions , message: 'The Data successfully retrieved');
+        return $this->successResponse(data:  QuestionResource::collection($questions), message: 'The Data successfully retrieved');
     }
 
     public function store(QuestionStoreRequest $request): JsonResponse
