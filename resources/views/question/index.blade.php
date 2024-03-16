@@ -76,8 +76,7 @@
                                                     <div class="modal-body scroll-y px-10 px-lg-15 pt-0 pb-15">
                                                         <!--begin:Form-->
                                                         <div class="form-group">
-                                                            <form id="kt_modal_new_hotel_form" class="form" action="{{ route('question.store') }}" method="POST">
-
+                                                            <form id="kt_modal_new_hotel_form" class="form" enctype="multipart/form-data" action="{{ route('question.store') }}" method="POST">
                                                                 @csrf
                                                                 <!--begin::Heading-->
 
@@ -88,6 +87,27 @@
                                                                 </div>
                                                                 <!--end::Heading-->
 {{--                                                                //TODO: Store image--}}
+
+                                                              <div>
+                                                                  <div class="mb-13 text-center">
+                                                                      <!--begin::Title-->
+                                                                      <h1 class="mb-3">أضف صورة السؤال</h1>
+                                                                      <!--end::Title-->
+                                                                  </div>
+                                                                <!--begin::Input group-->
+                                                                <div class="d-flex flex-column mb-8 fv-row">
+                                                                    <!--begin::Label-->
+                                                                    <label class="d-flex align-items-center fs-6 fw-bold mb-2">
+                                                                        <span class="required">صورة السؤال</span>
+                                                                    </label>
+                                                                    <!--end::Label-->
+
+                                                                    <label>
+                                                                        <input required class="form-control-file" type="file" id="img" name="img">
+                                                                    </label>
+                                                                </div>
+                                                                <!--end::Input group-->
+
                                                                 <!--begin::Input group-->
                                                                 <div class="d-flex flex-column mb-8 fv-row">
                                                                     <!--begin::Label-->

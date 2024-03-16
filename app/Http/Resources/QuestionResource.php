@@ -18,7 +18,7 @@ class QuestionResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'category' => $this->category,
-            'img' => asset($this->img),
+            'img' => asset('img') . $this->img,
             'choices' => ChoiceResource::collection($this->choices),
         ];
     }

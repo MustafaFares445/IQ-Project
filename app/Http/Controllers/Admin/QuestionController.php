@@ -15,7 +15,7 @@ class QuestionController extends Controller
      */
     public function index()
     {
-       $questions = Question::with('type')->get();
+       $questions = Question::with('type')->orderBy('category')->get();
 
 
        return view('question.index' , compact('questions'));
@@ -46,9 +46,7 @@ class QuestionController extends Controller
      */
     public function update(Request $request, Question $question)
     {
-        $this->deleteFile($question , 'img');
-
-        $this->uploadFile($request , 'questions' , 'img');
+        $this->uploadFile($request , 'questions/' , 'img');
 
         $question->update($request->all());
 

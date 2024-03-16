@@ -20,6 +20,7 @@ class Question extends Model
         'typeId',
         'title',
         'category',
+        'img',
     ];
 
     /**

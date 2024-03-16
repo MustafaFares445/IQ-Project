@@ -17,7 +17,7 @@ class ChoiceResource extends JsonResource
         return [
             'id' => $this->id,
             'description' => $this->description,
-            'img' => asset($this->img),
+            'img' => asset('img') . $this->img,
             'istrue' => $this->istrue,
         ];
     }
