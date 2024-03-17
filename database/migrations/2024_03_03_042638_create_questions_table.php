@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('typeId')->constrained('types')->references('id')->cascadeOnDelete();
             $table->string('title');
-            $table->string('img');
+            $table->string('img')->nullable();
             $table->enum('category' , ['أ' , 'أب' , 'ب'])->nullable();
             $table->timestamps();
         });

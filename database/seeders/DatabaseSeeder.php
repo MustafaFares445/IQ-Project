@@ -25,8 +25,8 @@ class DatabaseSeeder extends Seeder
 //         ]);
 
          Type::factory()->create();
-         Question::factory(25)->create();
-         Choice::factory(100)->create();
-         Score::factory(10)->create();
+//         Question::factory(25)->create();
+//         Choice::factory(100)->create();
+//         Score::factory(10)->create();
     }
 }

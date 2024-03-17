@@ -1,6 +1,6 @@
 <title>برنامج الذكاء</title>
 
-<link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />
+{{--<link rel="shortcut icon" href="{{asset('assets/media/logos/favicon.ico')}}" />--}}
 
 <!--begin::Fonts-->
 <link rel="preconnect" href="https://fonts.googleapis.com">

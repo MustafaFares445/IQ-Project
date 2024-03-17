@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\ChoiceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,7 @@ Route::post('/question', [\App\Http\Controllers\Admin\QuestionController::class 
 Route::put('/question/{question}', [\App\Http\Controllers\Admin\QuestionController::class , 'update'])->name('question.update');
 Route::delete('/question/{question}', [\App\Http\Controllers\Admin\QuestionController::class , 'destroy'])->name('question.destroy');
 
+////******************************////////
+Route::get('/choice/{id}', [\App\Http\Controllers\Admin\ChoiceController::class , 'index'])->name('choice.index');
+Route::delete('/choice/{choice}', [ChoiceController::class, 'destroy'])->name('choice.destroy');
+Route::post('/choice/', [ChoiceController::class, 'store'])->name('choice.store');

@@ -16,9 +16,9 @@ return new class extends Migration
         Schema::create('choices', function (Blueprint $table) {
             $table->id();
             $table->foreignId('questionId')->constrained('questions')->references('id')->cascadeOnDelete();
-            $table->string('description');
-            $table->string('img');
-            $table->boolean('istrue');
+            $table->string('description')->nullable();
+            $table->string('img')->nullable();
+            $table->boolean('istrue')->default(0);
             $table->timestamps();
         });
 

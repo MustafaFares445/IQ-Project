@@ -19,6 +19,7 @@ class Choice extends Model
         'questionId',
         'description',
         'istrue',
+        'img'
     ];
 
     /**

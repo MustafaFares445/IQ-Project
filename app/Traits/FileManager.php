@@ -20,7 +20,7 @@ trait FileManager
         // Check if the file exists in the request
         if ($request->hasFile($fileName)) {
             $file = $request->file($fileName); // Get the uploaded file object
-            $path = $file->store($path, ['disk' => 'public']); // Store the file in the specified path
+            $path = $file->storeAs($path, ['disk' => 'public']); // Store the file in the specified path
 
             // Update the request data with the file path
             $request[$fileName] = $path;

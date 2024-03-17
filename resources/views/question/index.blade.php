@@ -198,15 +198,18 @@
                     <thead>
                     <tr class="fw-bolder text-muted bg-light">
                         <th class="ps-4 min-w-100px rounded-start">#</th>
+                        <th class="ps-4 min-w-100px rounded-start"></th>
                         <th class="ps-4 min-w-100px rounded-start">نص السؤال</th>
                         <th class="ps-4 min-w-auto me-auto">الصنف</th>
                         <th class="ps-4 min-w-auto me-auto">القسم</th>
                         <th class="ps-4 min-w-auto me-auto">الأوامر</th>
+                        <th class="fw-bolder text-muted bg-light text-end"></th>
                     </tr>
                     </thead>
                     <!--end::Table head-->
                     <!--begin::Table body-->
                     @foreach($questions as $question)
+
 
                         <tbody>
                         <tr>
@@ -216,7 +219,12 @@
                                 </div>
                             </td>
 
+                            <td>
+                                <img src="{{asset('questions/' . $question->img)}}" class="h-75 align-self-end" alt="" width="280" height="240">
+                            </td>
 {{--                            //TODO: add Image question--}}
+
+
                             <td>
                                 <div class="d-flex justify-content-start flex-column">
                                     <output class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{$question->title}}</output>
@@ -240,7 +248,7 @@
                                             <input type ="submit"  class="btn btn-bg-light btn-color-muted btn-active-color-danger btn-sm px-4 me-14" value="الحذف">
                                         </div>
                                     </form>
-                                    <a href="{{route('question.edit' , $question->id)}}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-19 btn-edit">التعديل</a>
+                                    <a href="{{route('choice.index' , $question->id)}}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-19 btn-edit">إظهار الاختيارات</a>
                                 </div>
                             </td>
                         </tr>

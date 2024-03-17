@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Traits\FileManager;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class QuestionController extends Controller
 {
@@ -17,7 +18,6 @@ class QuestionController extends Controller
     {
        $questions = Question::with('type')->orderBy('category')->get();
 
-
        return view('question.index' , compact('questions'));
     }
 
@@ -26,32 +26,28 @@ class QuestionController extends Controller
      */
     public function store(Request $request)
     {
-        $this->uploadFile($request , 'questions' , 'img');
-        Question::create($request->all());
+        $path = $request->file('img')->storeAs('public', $request->file('img')->getClientOriginalName());
+
+        $file = $request->file('img');
+        $fileName = $file->getClientOriginalName();
+        $file->move(public_path('questions'), $fileName);
+
+
+
+        $path = explode('/', $path);
+
+        Question::create([
+            'title' => $request->title,
+            'img' => $path[1] ?? null,
+            'category' => $request->category,
+            'typeId' => $request->typeId
+        ]);
 
         return redirect()->route('home');
     }
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        $question = Question::with('type')->find($id);
-
-        return view('question.edit', compact('question'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Question $question)
-    {
-        $this->uploadFile($request , 'questions/' , 'img');
-
-        $question->update($request->all());
-
-        return redirect()->route('home');
-    }
 
     /**
      * Remove the specified resource from storage.
@@ -63,4 +59,5 @@ class QuestionController extends Controller
 
         return redirect()->route('home');
     }
+
 }

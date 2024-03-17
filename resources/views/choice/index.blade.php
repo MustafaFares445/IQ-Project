@@ -6,7 +6,8 @@
 @endsection
 
 @section('page-name')
-    صفحة الأسئلة
+    صفحة الأختيارات الخاصة بالسؤال
+    {{$question->title}}
 @endsection
 
 
@@ -24,11 +25,11 @@
 
                     <div class="card-header border-0 pt-5">
                         <h3 class="card-title align-items-start flex-column">
-                            <span class="card-label fw-bolder fs-3 mb-1">احصائيات الأسئلة</span>
-                            <span class="text-muted mt-1 fw-bold fs-7">{{\App\Models\Choice::where('questionId' , $question->id)->count()}} عدد الخيارات الكلي </span>
+                            <span class="card-label fw-bolder fs-3 mb-1">احصائيات الأجوبة</span>
+                            <span class="text-muted mt-1 fw-bold fs-7">{{\App\Models\Choice::where('questionId' , $question->id)->count()}} عدد الأجوبة الكلي </span>
                         </h3>
 
-                        <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="أضف سؤال جديد">
+                        <div class="card-toolbar" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-trigger="hover" title="أضف اختيار جديد">
                             <a class="btn btn-sm btn-light btn-active-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_new_hotel">
                                 <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                                 <span class="svg-icon svg-icon-3">
@@ -37,7 +38,7 @@
                                     <rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="black" />
                                 </svg>
                             </span>
-                                <!--end::Svg Icon-->أضف خيار جديد </a>
+                                <!--end::Svg Icon-->أضف اختيار جديد </a>
                         </div>
                     </div>
 
@@ -82,7 +83,7 @@
 
                                                                 <div class="mb-13 text-center">
                                                                     <!--begin::Title-->
-                                                                    <h1 class="mb-3">أضف خيار جديد</h1>
+                                                                    <h1 class="mb-3">أضف اختيار جديد</h1>
                                                                     <!--end::Title-->
                                                                 </div>
                                                                 <!--end::Heading-->
@@ -107,7 +108,7 @@
                                                                         </label>
                                                                     </div>
                                                                     <!--end::Input group-->
-
+                                                                    <input type="hidden" name="questionId" value="{{$question->id}}">
                                                                     <!--begin::Input group-->
                                                                     <div class="d-flex flex-column mb-8 fv-row">
                                                                         <!--begin::Label-->
@@ -117,7 +118,7 @@
                                                                         <!--end::Label-->
 
                                                                         <label>
-                                                                            <input type="text" class="form-control form-control-solid" placeholder="ادخل نص الاختيار" name="description">
+                                                                            <input type="text" class="form-control form-control-solid" placeholder="ادخل وصف الاختيار" name="description">
                                                                         </label>
                                                                     </div>
                                                                     <!--end::Input group-->
@@ -127,23 +128,20 @@
                                                                         <!--begin::Col-->
                                                                         <div class="col-md-6 fv-row">
                                                                             <label class="required fs-6 fw-bold mb-2">هل هو الجواب الصحيح؟</label>
-                                                                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="أختر قسم السؤال" name="typeId">
-
+                                                                            <select class="form-select form-select-solid" data-control="select2" data-hide-search="true" data-placeholder="هل هذا السؤال هو الجواب الصحيح؟" name="istrue">
+                                                                                 <option value=1>نعم</option>
                                                                                     <option value=0>لا</option>
-                                                                                    <option value=1>نعم</option>
                                                                             </select>
                                                                         </div>
                                                                         <!--end::Col-->
-
-                                                                        <input type="hidden" value="{{$question->id}}" name="questionId">
                                                                     </div>
                                                                     <!--end::Input group-->
                                                                     <!--begin::Actions-->
                                                                     <div class="text-center">
                                                                         {{--  <button type="reset" href="/hotel" id="kt_modal_new_target_cancel" class="btn btn-light me-3">Cancel</button>--}}
                                                                         <button type="submit" id="kt_modal_new_target_submit" class="btn btn-primary">
-                                                                            <span class="indicator-label">Submit</span>
-                                                                            <span class="indicator-progress">Please wait...
+                                                                            <span class="indicator-label">إرسال</span>
+                                                                            <span class="indicator-progress">يرجى الإرسال
 															            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                                                         </button>
                                                                     </div>
@@ -171,15 +169,15 @@
                     <thead>
                     <tr class="fw-bolder text-muted bg-light">
                         <th class="ps-4 min-w-100px rounded-start">#</th>
-                        <th class="ps-4 min-w-auto me-auto">صورة</th>
-                        <th class="ps-4 min-w-100px rounded-start">نص الاختباربة</th>
-                        <th class="ps-4 min-w-auto me-auto">جواب صحيح؟</th>
-                        <th class="ps-4 min-w-auto me-auto">الأوامر</th>
+                        <th class="ps-4 min-w-100px rounded-start"></th>
+                        <th class="ps-4 min-w-100px rounded-start">وصف الاجابة</th>
+                        <th class="ps-4 min-w-auto me-auto">هل هو الجواب الصحيح؟</th>
+                        <th class="fw-bolder text-muted bg-light text-end"></th>
                     </tr>
                     </thead>
                     <!--end::Table head-->
                     <!--begin::Table body-->
-                    @foreach($chocies as $choice)
+                    @foreach($question->choices as $choice)
 
                         <tbody>
                         <tr>
@@ -189,17 +187,25 @@
                                 </div>
                             </td>
 
+                            <td>
+                                <img src="{{asset('choices/' . $choice->img)}}" class="h-75 align-self-end" alt="" width="280" height="240">
+                            </td>
                             {{--                            //TODO: add Image question--}}
                             <td>
                                 <div class="d-flex justify-content-start flex-column">
-                                    <output class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{$choice->desciption}}</output>
+                                    <output class="text-dark fw-bolder text-hover-primary mb-1 fs-6">{{$choice->description}}</output>
                                     {{--                                <span class="text-muted fw-bold text-muted d-block fs-7">HTML, JS, ReactJS</span>--}}
                                 </div>
                             </td>
                             <td>
-                                <output class="text-dark fw-bolder text-hover-primary d-block mb-1 fs-6">{{$question->istrue}}</OUTPUT>
+                                @if($choice->istrue)
+                                <output class="text-dark fw-bolder text-success d-block mb-1 fs-6">نعم</OUTPUT>
+                                @else
+                                    <output class="text-dark fw-bolder text-danger d-block mb-1 fs-6">لا</OUTPUT>
+                                @endif
                                 {{--                        <span class="text-muted fw-bold text-muted d-block fs-7">Pending</span>--}}
                             </td>
+
                             <td class="text-end">
                                 <div class="form-group">
                                     <form method="POST" action="{{route('choice.destroy' , $choice->id)}}">
