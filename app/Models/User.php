@@ -18,7 +18,7 @@ class User extends Model
      */
     protected $fillable = [
         'name',
-        'email',
+        'phone',
         'password',
         'age',
     ];
@@ -43,10 +43,10 @@ class User extends Model
         'password' => 'hashed',
     ];
 
-    public function findByEmail(string $email)
+    public function findByPhone(string $email)
     {
         return self::query()
-            ->where('email', $email)
+            ->where('phone', $email)
             ->first();
     }
 

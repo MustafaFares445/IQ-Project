@@ -19,7 +19,7 @@ class AuthController extends Controller
 
     public function register(RegisterRequest $request): JsonResponse
     {
-        $user = $this->user->findByEmail($request->get('email'));
+        $user = $this->user->findByPhone($request->get('phone'));
 
         if (!empty($user)){
             return $this->failedResponse(__('User already exists'));
@@ -36,7 +36,7 @@ class AuthController extends Controller
     }
     public function login(LoginRequest $request): JsonResponse
     {
-        $user = $this->user->findByEmail($request->get('email'));
+        $user = $this->user->findByPhone($request->get('phone'));
         if (empty($user) || Hash::check($request->get('password'), $user->password) === false) {
             return $this->failedResponse(__('invalid credentials'));
         }
