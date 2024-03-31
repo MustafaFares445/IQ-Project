@@ -155,7 +155,7 @@
                                                                                 <option value="">هذا السؤال غير تابع لاي صنف</option>
                                                                                 <option value="أ">أ</option>
                                                                                 <option value="أب">أب</option>
-                                                                                <option value="أب">ب</option>
+                                                                                <option value="ب">ب</option>
                                                                             </select>
 
                                                                             <!--end::Input-->
