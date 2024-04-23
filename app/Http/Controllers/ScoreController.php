@@ -26,8 +26,9 @@ class ScoreController extends Controller
 
         $iq = self::score($request->get('score'));
 
-       $score =  Score::crete([
-           'userId' => auth()->guard('sanctum')->user()->id,
+       $score =  Score::create([
+            'userId' => auth()->guard('sanctum')->user()->id,
+            'typeId' => $request->typeId,
             'iq' => $iq,
             'name' => self::name($iq),
         ]);

@@ -52,6 +52,6 @@ class User extends Model
 
     public function scores(): HasMany
     {
-        return $this->hasMany(Score::class);
+        return $this->hasMany(Score::class, 'userId');
     }
 }

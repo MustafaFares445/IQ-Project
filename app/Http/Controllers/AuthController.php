@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Type;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
@@ -12,6 +13,8 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    private bool $IqQuiz = false;
+    private bool $LearningQuiz = false;
     public function __construct(protected User $user)
     {
 
@@ -44,10 +47,18 @@ class AuthController extends Controller
         $user->age = $request->get('age');
         $user->save();
 
+
+        if ($user->isRelation('scores')){
+            $this->IqQuiz = $user->scores->firstWhere('typeId' , Type::firstWhere('name' , 'أختبار الذكاء')->id )->exists() ?? false;
+            //$this->LearningQuiz = $user->scores->firstWhere('typeId' , Type::firstWhere('name' , 'صعوبات تعلم') )->exists() ?? false;
+        }
+
         return $this->successResponse(
             [
                 'user' => UserResource::make($user),
                 'token' => $user->createToken('user')->plainTextToken,
+                'IqQuiz' => $this->IqQuiz,
+                'LearningQuiz' => $this->LearningQuiz,
             ],
             message: __('login success')
         );

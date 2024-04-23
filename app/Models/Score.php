@@ -20,6 +20,7 @@ class Score extends Model
         'userId',
         'score',
         'name',
+        'iq',
     ];
 
     /**
