@@ -33,6 +33,8 @@ class AuthController extends Controller
             [
                 'user' => UserResource::make($user),
                 'token' => $user->createToken('user')->plainTextToken,
+                'IqQuiz' => $this->IqQuiz,
+                'LearningQuiz' => $this->LearningQuiz,
             ],
             message: __('register success')
         );
@@ -49,8 +51,10 @@ class AuthController extends Controller
 
 
         if ($user->isRelation('scores')){
-            $this->IqQuiz = $user->scores->firstWhere('typeId' , Type::firstWhere('name' , 'أختبار الذكاء')->id )->exists() ?? false;
-            //$this->LearningQuiz = $user->scores->firstWhere('typeId' , Type::firstWhere('name' , 'صعوبات تعلم') )->exists() ?? false;
+            if ($user->scores->firstWhere('typeId', Type::firstWhere('name', 'أختبار الذكاء')->id) !== null)
+                $this->IqQuiz = true;
+            else
+                $this->IqQuiz = false;
         }
 
         return $this->successResponse(
